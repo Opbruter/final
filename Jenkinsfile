@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/your-username/node-app.git', branch: 'main'
+                git url: 'https://<your-PAT>@github.com/Opbruter/final.git', branch: 'main', credentialsId: 'yes'
+
             }
         }
 
