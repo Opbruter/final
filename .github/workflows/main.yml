@@ -1,0 +1,34 @@
+name: Build and Deploy Node.js App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code from the GitHub repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Step 3: Build the Docker image for your Node.js app
+    - name: Build Docker image
+      run: |
+        docker build -t node-app .
+
+    # Step 4: Run the Docker container, expose port 3000
+    - name: Run Docker container
+      run: |
+        docker run -d -p 3000:3000 --name node-app node-app
+
+    # Step 5: Check if the container is running
+    - name: Verify container is running
+      run: |
+        docker ps
